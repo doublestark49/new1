@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>New Year 2025 Adventure</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Main Container with Background Image -->
+    <div class="main-container">
+        <div class="card">
+            <div class="card-content">
+                <h1>Happy New Year 2025!</h1>
+                <p>May this new year bring you joy, success, and many beautiful moments.</p>
+                <button onclick="displayMessage()">Click for a special message</button>
+                <p id="message" class="hidden"></p>
+            </div>
+        </div>
+
+        <!-- Adventure Story Section -->
+        < <div id="story-section">
+            <h2>Your New Year's Adventure</h2>
+            <p id="story-text">As we step into this brand new year, may it be a year filled with endless possibilities and new adventures. May 2025 bring you closer to your dreams, fill your life with joy, and surround you with love and positivity. This is a year for fresh beginnings, bold moves, and making memories that will last a lifetime.
+
+                Here’s to new opportunities, new experiences, and a renewed sense of hope and strength. Let the spirit of the New Year light up your path and guide you to greatness.
+                
+                Wishing you success, happiness, and peace in every step you take in 2025. May this year bring you all the joy and prosperity you deserve! </p>
+            <button id="next" onclick="nextStory()">Continue Adventure</button>
+        </div>
+
+        <!-- Countdown Timer -->
+        <div id="countdown" class="countdown">
+            <h3>Countdown to New Year 2025</h3>
+            <div id="timer"></div>
+        </div>
+
+        <!-- Audio Player for Background Music -->
+        <div class="audio-player">
+            <h3>Celebrate with Music</h3>
+            <audio controls autoplay loop>
+                <source src="new_year_song.mp3" type="audio/mp3">
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+
+        <!-- Fireworks Background Animation -->
+        <div id="fireworks" class="fireworks hidden">
+            <img src="fireworks.png" alt="Fireworks" />
+        </div>
+    </div>
+
+    <script src="adventure.js"></script>
+    <script>
+        // Display a special message when button is clicked
+        function displayMessage() {
+            document.getElementById('message').classList.remove('hidden');
+            document.getElementById('message').textContent = "Wishing you an adventurous and joyful year ahead!";
+        }
+
+        // Adventure story progression
+        let storyStep = 0;
+
+        function nextStory() {
+            storyStep++;
+            const storyText = document.getElementById('story-text');
+            switch(storyStep) {
+                case 1:
+                    storyText.textContent = "As you walk into the forest, you notice a glowing path leading you deeper.";
+                    break;
+                case 2:
+                    storyText.textContent = "The path splits into two directions: one leads to a sparkling castle, the other to a hidden cave.";
+                    break;
+                case 3:
+                    storyText.textContent = "You bravely decide to venture towards the cave, hearing mystical sounds from within.";
+                    break;
+                case 4:
+                    storyText.textContent = "Suddenly, a magical creature appears, offering you a gift for the New Year!";
+                    document.getElementById('next').disabled = true;
+                    break;
+                default:
+                    storyText.textContent = "Thank you for joining the adventure! May your year be filled with surprises!";
+                    break;
+            }
+        }
+
+        // Countdown to New Year 2025
+        function startCountdown() {
+            const newYear = new Date("January 1, 2025 00:00:00").getTime();
+            const timerElement = document.getElementById("timer");
+
+            const interval = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = newYear - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                timerElement.innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+                if (distance < 0) {
+                    clearInterval(interval);
+                    timerElement.innerHTML = "Happy New Year 2025!";
+                    startFireworks();
+                }
+            }, 1000);
+        }
+
+        // Fireworks effect when countdown finishes
+        function startFireworks() {
+            document.getElementById('fireworks').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('fireworks').classList.add('hidden');
+            }, 5000);
+        }
+
+        // Start the countdown when page loads
+        window.onload = function() {
+            startCountdown();
+        };
+    </script>
+</body>
+</html>
+
